@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beggar-My-Neighbour search</title>
+<meta name="description" content="A computer search for the longest finite game of Beggar-My-Neighbour: our record, its history and a 24-hour turbo run.">
+<style>
+:root{--bg:#fbfaf7;--fg:#22211e;--mut:#6b6860;--card:#fff;--line:#dfdcd3;--hi:#f4e3bd;--hifg:#5c4300}
+@media (prefers-color-scheme:dark){:root{--bg:#1a1a18;--fg:#ecebe6;--mut:#a5a298;--card:#242321;--line:#3b3a36;--hi:#51401a;--hifg:#f6dfa8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 "Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
+main{max-width:1040px;margin:0 auto;padding:40px 16px 56px}
+.eyebrow{margin:0 0 4px;color:var(--mut);font-size:.88rem;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:2rem;line-height:1.2;margin:0 0 12px}
+h2{font-size:1.3rem;margin:44px 0 10px}
+h3{font-size:1.05rem;margin:0 0 4px}
+p{margin:0 0 12px}
+sup{font-size:.75em;line-height:0}
+a{color:inherit}
+.record{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;margin-top:28px}
+.record h2{margin:0 0 6px}
+.big{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-bottom:8px}
+.big .n{font-size:2.9rem;line-height:1;font-weight:700;font-variant-numeric:tabular-nums}
+.big .u{font-size:1.3rem;font-weight:700}
+.big .t{color:var(--mut)}
+.meta{color:var(--mut);margin:0 0 4px}
+.meta strong{color:var(--fg)}
+.deal{margin-top:16px}
+.record > p.meta{margin:14px 0 0}
+.deal{display:grid;gap:8px}
+.hand{display:grid;grid-template-columns:76px 1fr;align-items:center;gap:10px}
+.hand > span{font-size:.88rem;color:var(--mut)}
+.cards{display:grid;grid-template-columns:repeat(26,minmax(0,1fr));gap:0}
+.c{aspect-ratio:5/7;border:1px solid var(--line);margin:0 -1px -1px 0;display:grid;place-items:center;font:600 clamp(9px,1.4vw,14px)/1 ui-monospace,Consolas,monospace}
+.c.court{background:var(--hi);color:var(--hifg)}
+@media (max-width:560px){.hand{grid-template-columns:1fr;gap:4px}.cards{grid-template-columns:repeat(13,minmax(0,1fr))}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.stat .v{font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stat .s{color:var(--mut);font-size:.88rem}
+.sum{display:grid;grid-template-columns:auto 1fr;gap:0 10px;margin-top:4px;font-size:.88rem;color:var(--mut)}
+.sum .num{text-align:right;font-variant-numeric:tabular-nums;color:var(--fg);white-space:nowrap}
+.note{color:var(--mut);font-size:.88rem;line-height:1.4;margin:6px 0 0}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-size:.92rem;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:6px 14px 6px 0;text-align:left;white-space:nowrap}
+th{font-weight:700}
+.num{text-align:right!important;font-variant-numeric:tabular-nums}
+td.d{font:13px/1.35 ui-monospace,Consolas,monospace;color:var(--mut)}
+td.d b{color:var(--hifg);font-weight:700}
+tr.best td,tr.hl td{background:var(--hi)}
+tr.best td.d,tr.hl td.d{color:var(--hifg)}
+tr.hl td.cards-n,tr.best td.num:nth-child(2){font-weight:700}
+.intro p{max-width:none}
+.facts{font-weight:700;margin-top:16px}
+.endless{border-left:3px solid var(--hifg);padding:2px 0 2px 14px;margin:18px 0}
+.endless h2{margin:0 0 6px}
+.endless .d{font:13px/1.5 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+footer{margin-top:44px;color:var(--mut);font-size:.84rem}
+</style></head><body><main>
+<header><p class="eyebrow">Beggar-My-Neighbour</p><h1>The search for the longest finite game</h1></header>
+<section class="record">
+  <h2 class="label">Our record</h2>
+  <div class="big"><span class="n">7979</span><span class="u">cards</span><span class="t">1118 tricks</span></div>
+  <div><p class="meta">Found <strong>25 Oct 2026, 19:25</strong> after <strong>12 d 11 h 36 min</strong> of searching (and approx. 1.79 × 10<sup>14</sup> searched games)</p><p class="meta"><strong>2nd-longest</strong> known game (the longest known has 8344 cards)</p></div>
+  <div class="deal">
+    <div class="hand"><span>Player 1</span><div class="cards"><span class="c pip"></span><span class="c pip"></span><span class="c court">Q</span><span class="c pip"></span><span class="c court">K</span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c court">K</span><span class="c pip"></span><span class="c court">J</span><span class="c pip"></span><span class="c court">A</span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c court">A</span><span class="c pip"></span><span class="c court">J</span><span class="c court">A</span><span class="c pip"></span><span class="c court">J</span><span class="c court">K</span><span class="c pip"></span><span class="c pip"></span></div></div>
+    <div class="hand"><span>Player 2</span><div class="cards"><span class="c court">Q</span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c court">Q</span><span class="c pip"></span><span class="c court">K</span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c court">J</span><span class="c pip"></span><span class="c court">A</span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c pip"></span><span class="c court">Q</span><span class="c pip"></span></div></div>
+  </div>
+  <p class="meta">More about long games, infinite games, and the current ranking:
+    <a href="https://richardpmann.com/beggar-my-neighbour-records.html">Richard P. Mann's register of records</a>.</p>
+</section>
+<section class="stats" aria-label="Search progress">
+  <div class="stat"><h3>Games evaluated</h3><div class="v">≈ 1.33 × 10<sup>15</sup></div><div class="sum"><span class="num">= 1'001'029'632'000'000</span><span>24h turbo search</span><span class="num">+ 325'061'689'344'000</span><span>our search</span></div><p class="note">Our search runs on an NVIDIA RTX&nbsp;4060.</p></div>
+  <div class="stat"><h3>Total search time</h3><div class="v">21 d 22 h 13 min 20 s</div>
+    <div class="s">(+ 24h turbo search, see below)</div><div class="s">Search started 12 Oct 2026</div></div>
+</section>
+<section>
+  <h2 class="label">Record history</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Found</th><th class="num">Cards</th><th class="num">Tricks</th><th>Player 1</th><th>Player 2</th><th class="num">Search time</th></tr></thead>
+    <tbody><tr class="best"><td>25 Oct 2026, 19:25</td><td class="num">7979</td><td class="num">1118</td><td class="d">--<b>Q</b>-<b>K</b>---<b>K</b>-<b>J</b>-<b>A</b>----<b>A</b>-<b>J</b><b>A</b>-<b>J</b><b>K</b>--</td><td class="d"><b>Q</b>----<b>Q</b>-<b>K</b>-----<b>J</b>-<b>A</b>--------<b>Q</b>-</td><td class="num">12 d 11 h 36 min</td></tr><tr><td>16 Oct 2026, 15:01</td><td class="num">7422</td><td class="num">1037</td><td class="d">--<b>A</b><b>J</b><b>A</b><b>J</b>---<b>K</b>---<b>J</b>-------<b>Q</b>-<b>Q</b>-<b>J</b></td><td class="d"><b>K</b>-------<b>K</b>-<b>K</b>-<b>A</b>---<b>Q</b>-<b>A</b>-<b>Q</b>-----</td><td class="num">3 d 14 h 59 min</td></tr><tr><td>16 Oct 2026, 07:25</td><td class="num">7233</td><td class="num">1012</td><td class="d">-<b>A</b>--<b>J</b>------<b>K</b>----<b>A</b>--<b>Q</b><b>A</b>-<b>J</b><b>K</b>--</td><td class="d">-<b>K</b><b>J</b>----<b>Q</b>---<b>A</b>---<b>Q</b>---<b>J</b>---<b>K</b>-<b>Q</b></td><td class="num">3 d 7 h 23 min</td></tr><tr><td>15 Oct 2026, 23:37</td><td class="num">7100</td><td class="num">993</td><td class="d">-------<b>Q</b><b>A</b>--<b>Q</b>--------<b>A</b><b>J</b>----</td><td class="d">--<b>K</b>-<b>K</b>----<b>J</b>-<b>A</b>-<b>J</b>-<b>K</b>-<b>J</b><b>K</b><b>A</b>--<b>Q</b>--<b>Q</b></td><td class="num">2 d 23 h 35 min</td></tr><tr><td>13 Oct 2026, 20:13</td><td class="num">7047</td><td class="num">943</td><td class="d">---<b>A</b>---<b>K</b><b>Q</b>-<b>J</b>-----<b>Q</b><b>J</b><b>Q</b><b>J</b><b>K</b>---<b>A</b>-</td><td class="d">-----------<b>K</b><b>A</b>----<b>Q</b>---<b>K</b>-<b>J</b><b>A</b>-</td><td class="num">22 h 24 min</td></tr><tr><td>13 Oct 2026, 04:37</td><td class="num">6826</td><td class="num">940</td><td class="d"><b>A</b>--<b>A</b>-<b>Q</b><b>K</b>---<b>J</b><b>A</b>--<b>Q</b>--<b>A</b>-<b>Q</b>---<b>J</b>--</td><td class="d">----<b>J</b><b>K</b>----<b>J</b>---------<b>K</b>--<b>K</b><b>Q</b>-</td><td class="num">8 h 10 min</td></tr><tr><td>13 Oct 2026, 00:41</td><td class="num">6800</td><td class="num">930</td><td class="d">-<b>K</b>-<b>A</b>-----<b>J</b>---<b>A</b><b>Q</b>------<b>K</b>--<b>Q</b>-</td><td class="d">-<b>A</b>-----<b>K</b>--<b>Q</b>-----<b>J</b><b>J</b>---<b>A</b><b>Q</b><b>J</b>-<b>K</b></td><td class="num">4 h 14 min</td></tr><tr><td>12 Oct 2026, 16:31</td><td class="num">6185</td><td class="num">864</td><td class="d">-----<b>Q</b>-<b>J</b>----<b>K</b>--<b>K</b>--<b>Q</b><b>A</b>---<b>A</b><b>A</b><b>J</b></td><td class="d">--<b>A</b>---<b>J</b><b>K</b>---<b>Q</b>--<b>Q</b>------<b>J</b>-<b>K</b>--</td><td class="num">0 h 21 min</td></tr><tr><td>12 Oct 2026, 16:31</td><td class="num">6050</td><td class="num">847</td><td class="d">---<b>Q</b>-<b>A</b>------<b>K</b>-<b>J</b>---------<b>Q</b><b>A</b></td><td class="d">--<b>K</b>-<b>K</b>--<b>A</b>---<b>Q</b><b>J</b><b>J</b><b>A</b>-<b>J</b>-<b>K</b>------<b>Q</b></td><td class="num">0 h 21 min</td></tr><tr><td>12 Oct 2026, 16:13</td><td class="num">5710</td><td class="num">791</td><td class="d">------<b>J</b>-<b>Q</b>---<b>Q</b>----<b>Q</b>--<b>J</b>----<b>J</b></td><td class="d">----<b>A</b>--<b>A</b>---<b>K</b>-<b>A</b><b>K</b>-<b>Q</b>--<b>K</b>-<b>J</b>--<b>A</b><b>K</b></td><td class="num">0 h 4 min</td></tr><tr><td>12 Oct 2026, 16:11</td><td class="num">5405</td><td class="num">754</td><td class="d">---<b>K</b>-<b>A</b>-----<b>A</b><b>A</b>--<b>Q</b>-<b>A</b><b>J</b>-----<b>K</b>-</td><td class="d">--<b>K</b>--<b>J</b><b>K</b><b>Q</b>--<b>J</b><b>J</b>-----<b>Q</b>-------<b>Q</b></td><td class="num">0 h 1 min</td></tr><tr><td>12 Oct 2026, 16:11</td><td class="num">5359</td><td class="num">734</td><td class="d">---<b>K</b><b>A</b>--<b>J</b>-<b>J</b>---<b>Q</b><b>Q</b>---<b>J</b><b>A</b>----<b>A</b><b>J</b></td><td class="d">--<b>Q</b>----<b>K</b>-<b>K</b>-------------<b>Q</b><b>A</b><b>K</b></td><td class="num">0 h 1 min</td></tr><tr><td>12 Oct 2026, 16:10</td><td class="num">5043</td><td class="num">723</td><td class="d">------<b>J</b>-<b>Q</b><b>J</b><b>J</b><b>K</b><b>A</b>-----<b>K</b>-----<b>A</b>-</td><td class="d">-<b>Q</b>----------<b>J</b>-<b>A</b>-<b>K</b><b>Q</b><b>A</b>---<b>K</b>--<b>Q</b></td><td class="num">0 h 0 min</td></tr><tr><td>12 Oct 2026, 16:10</td><td class="num">4836</td><td class="num">685</td><td class="d">------<b>Q</b>-<b>A</b>--<b>K</b><b>J</b>-<b>K</b><b>J</b>-----<b>K</b>-<b>J</b>--</td><td class="d">---------<b>A</b><b>Q</b>--<b>A</b><b>K</b>-<b>A</b>-<b>J</b><b>Q</b>----<b>Q</b>-</td><td class="num">0 h 0 min</td></tr><tr><td>12 Oct 2026, 16:10</td><td class="num">4615</td><td class="num">651</td><td class="d">---<b>Q</b>----<b>Q</b><b>J</b>-<b>J</b><b>A</b>-<b>A</b>--<b>A</b><b>K</b>-----<b>J</b><b>J</b></td><td class="d">--------------<b>Q</b><b>A</b><b>K</b><b>K</b><b>Q</b>--<b>K</b>----</td><td class="num">0 h 0 min</td></tr><tr><td>12 Oct 2026, 16:10</td><td class="num">4317</td><td class="num">610</td><td class="d">--<b>A</b>----<b>A</b>--<b>J</b>---<b>A</b>-<b>Q</b>---<b>K</b>---<b>J</b>-</td><td class="d">-<b>J</b><b>K</b>-----<b>A</b><b>J</b>-<b>Q</b>---<b>K</b>-------<b>Q</b><b>K</b><b>Q</b></td><td class="num">0 h 0 min</td></tr><tr><td>12 Oct 2026, 16:10</td><td class="num">4310</td><td class="num">590</td><td class="d"><b>J</b>---------<b>K</b>---<b>Q</b><b>J</b>--<b>J</b><b>K</b>---<b>K</b>--</td><td class="d">--<b>J</b><b>Q</b>---<b>A</b>---------<b>A</b>-<b>A</b><b>K</b><b>Q</b>-<b>Q</b><b>A</b>-</td><td class="num">0 h 0 min</td></tr><tr><td>12 Oct 2026, 16:10</td><td class="num">3789</td><td class="num">516</td><td class="d">-<b>K</b>--<b>A</b>-<b>Q</b><b>J</b><b>J</b>--<b>Q</b>--<b>K</b>--<b>J</b>---<b>A</b>---<b>A</b></td><td class="d">-------<b>Q</b>---<b>K</b>-----<b>K</b><b>A</b><b>Q</b>--<b>J</b>---</td><td class="num">0 h 0 min</td></tr></tbody>
+  </table></div>
+</section>
+<section class="turbo">
+  <h2 class="sec">24h turbo search</h2>
+  <div class="intro"><p>We wanted to do the “quadrillion games in a day” thing – and, admittedly, we were also a bit impatient. So we rented eight NVIDIA RTX 5090 GPUs and had them play about 1.00 × 10<sup>15</sup> games between 7 Nov 2026, 00:12 and 8 Nov 2026, 00:38, at a rate of 11.4 billion games per second. The longest game they found has 7696 cards.</p><p>That is clearly a disappointment, because our own record is longer and was found after only about 1.79 × 10<sup>14</sup> games. In hindsight, that record was a stroke of luck: the chance of finding such a game so early is only about 8&nbsp;%. The turbo run, on the other hand, was somewhat unlucky, since the probability of finding nothing longer than 7696 cards in 10<sup>15</sup> games is only about 18&nbsp;%. (Then again, the chance of beating our record in this run was only about 36&nbsp;% anyway.)</p></div>
+  <p class="facts">Result:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Found</th><th class="num">After</th><th class="num">Cards</th><th class="num">Tricks</th><th class="num">GPU</th><th class="num">Held as best</th><th>Player 1</th><th>Player 2</th></tr></thead>
+    <tbody><tr class="hl"><td>7 Nov 2026, 02:52</td><td class="num">2 h 40 min</td><td class="num cards-n">7696</td><td class="num">1064</td><td class="num">3</td><td class="num">21 h 46 min</td><td class="d">---<b>K</b>-<b>K</b>---<b>A</b><b>A</b>-<b>J</b>----<b>K</b>--<b>A</b>-----</td><td class="d">----<b>Q</b><b>Q</b>-<b>K</b><b>J</b>------<b>Q</b>--<b>Q</b><b>J</b><b>J</b>----<b>A</b></td></tr><tr><td>7 Nov 2026, 02:45</td><td class="num">2 h 33 min</td><td class="num cards-n">7371</td><td class="num">1015</td><td class="num">6</td><td class="num">6 min 26 s</td><td class="d">---<b>K</b>--<b>K</b>-<b>J</b>---<b>A</b>-<b>J</b><b>J</b><b>K</b>---<b>A</b><b>Q</b>--<b>A</b><b>J</b></td><td class="d">-<b>Q</b>-------<b>Q</b>---<b>K</b>-----<b>A</b>--<b>Q</b>---</td></tr><tr><td>7 Nov 2026, 01:10</td><td class="num">57 min 43 s</td><td class="num cards-n">7346</td><td class="num">1017</td><td class="num">8</td><td class="num">1 h 35 min</td><td class="d">-----<b>J</b>-------<b>K</b>--<b>K</b><b>K</b>--<b>K</b>-<b>A</b><b>A</b>--</td><td class="d">-----<b>J</b>--<b>Q</b>---<b>J</b><b>Q</b><b>A</b>---<b>Q</b><b>Q</b>---<b>J</b>-<b>A</b></td></tr><tr><td>7 Nov 2026, 00:51</td><td class="num">39 min 8 s</td><td class="num cards-n">7104</td><td class="num">984</td><td class="num">2</td><td class="num">18 min 35 s</td><td class="d">--<b>A</b>-----<b>A</b>-<b>K</b><b>J</b><b>Q</b>-<b>J</b>-----<b>A</b>-----</td><td class="d">-----<b>Q</b>-<b>K</b>---<b>K</b><b>J</b>-<b>K</b>---<b>Q</b>---<b>J</b><b>Q</b>-<b>A</b></td></tr><tr><td>7 Nov 2026, 00:13</td><td class="num">1 min 15 s</td><td class="num cards-n">6908</td><td class="num">966</td><td class="num">7</td><td class="num">37 min 53 s</td><td class="d">----<b>K</b><b>Q</b><b>A</b>-<b>Q</b><b>J</b>-<b>K</b>--<b>A</b>---<b>K</b><b>J</b>-<b>A</b><b>Q</b><b>Q</b>-<b>J</b></td><td class="d">---------<b>K</b>--<b>J</b>-----<b>A</b>-------</td></tr><tr><td>7 Nov 2026, 00:13</td><td class="num">19 s</td><td class="num cards-n">6864</td><td class="num">957</td><td class="num">3</td><td class="num">56 s</td><td class="d">--<b>Q</b>---<b>J</b>-<b>K</b><b>K</b>-----<b>Q</b><b>J</b>-----<b>Q</b>---</td><td class="d">---<b>K</b>----<b>A</b><b>J</b>--<b>J</b><b>A</b><b>Q</b>----<b>A</b>----<b>K</b><b>A</b></td></tr><tr><td>7 Nov 2026, 00:13</td><td class="num">16 s</td><td class="num cards-n">6241</td><td class="num">862</td><td class="num">2</td><td class="num">3 s</td><td class="d">---<b>A</b><b>K</b>-------<b>A</b>---<b>K</b><b>Q</b>-----<b>J</b>--</td><td class="d">-<b>K</b>--<b>Q</b>-------<b>J</b>-<b>Q</b>-<b>Q</b><b>K</b><b>A</b>---<b>J</b><b>J</b><b>A</b>-</td></tr><tr><td>7 Nov 2026, 00:12</td><td class="num">14 s</td><td class="num cards-n">5947</td><td class="num">835</td><td class="num">3</td><td class="num">2 s</td><td class="d">-------<b>A</b>----<b>J</b>-----<b>Q</b>-<b>K</b>-<b>J</b><b>J</b>--</td><td class="d">-----<b>Q</b>--------<b>K</b><b>Q</b>-<b>A</b><b>J</b><b>A</b><b>K</b>-<b>A</b>-<b>Q</b><b>K</b></td></tr><tr><td>7 Nov 2026, 00:12</td><td class="num">12 s</td><td class="num cards-n">5788</td><td class="num">797</td><td class="num">3</td><td class="num">2 s</td><td class="d">--<b>A</b>--<b>Q</b>------<b>A</b><b>K</b>--<b>A</b>---<b>J</b>--<b>A</b><b>Q</b>-</td><td class="d">---<b>J</b><b>K</b>-<b>Q</b>-<b>J</b>---<b>J</b>---<b>K</b>--<b>K</b>-----<b>Q</b></td></tr><tr><td>7 Nov 2026, 00:12</td><td class="num">9 s</td><td class="num cards-n">5667</td><td class="num">792</td><td class="num">4</td><td class="num">3 s</td><td class="d">---<b>J</b>---<b>A</b><b>K</b>---<b>K</b>--<b>Q</b>--<b>Q</b><b>Q</b>-<b>Q</b>-<b>J</b>--</td><td class="d"><b>K</b>---<b>A</b>------<b>J</b>--------<b>J</b>-<b>A</b><b>K</b><b>A</b>-</td></tr></tbody>
+  </table></div>
+</section>
+<footer>Last updated 8 Nov 2026. Times are Central European Time.</footer>
+</main></body></html>
